@@ -37,21 +37,35 @@ public class UserControllerTest {
     @Test
     public void save_사용자를_저장한다() throws Exception {
         // given
-        UserSaveRequest saveRequest = new UserSaveRequest();
-        ReflectionTestUtils.setField(saveRequest, "username","박병길");
-        ReflectionTestUtils.setField(saveRequest, "password","123");
+        UserSaveRequest saveRequest = createSaveRequest("박병길", "123");
 
         // when
+        MockHttpServletResponse response = sendSaveRequest(saveRequest);
+
+        // then
+        verify(userService).save(any());
+        assertSaveResponse(response);
+    }
+
+    private void assertSaveResponse(MockHttpServletResponse response) {
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+    }
+
+    private MockHttpServletResponse sendSaveRequest(UserSaveRequest saveRequest) throws Exception {
         MockHttpServletResponse response = mvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(saveRequest)))
                 .andDo(print())
                 .andReturn()
                 .getResponse();
+        return response;
+    }
 
-        // then
-        verify(userService).save(any());
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+    private UserSaveRequest createSaveRequest(String username, String password) {
+        UserSaveRequest saveRequest = new UserSaveRequest();
+        ReflectionTestUtils.setField(saveRequest, "username", username);
+        ReflectionTestUtils.setField(saveRequest, "password", password);
+        return saveRequest;
     }
 }
 
