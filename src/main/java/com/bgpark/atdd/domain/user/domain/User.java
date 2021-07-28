@@ -1,5 +1,6 @@
 package com.bgpark.atdd.domain.user.domain;
 
+import com.bgpark.atdd.domain.exception.InvalidPasswordException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,5 +23,11 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public void checkPassword() {
+        if (this.password.length() <= 5) {
+            throw new InvalidPasswordException("비밀번호는 5자리를 초과해야합니다");
+        }
     }
 }
