@@ -1,5 +1,6 @@
 package com.bgpark.atdd.domain.user.controller;
 
+import com.bgpark.atdd.domain.ControllerTest;
 import com.bgpark.atdd.domain.user.dto.UserSaveRequest;
 import com.bgpark.atdd.domain.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,9 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.bgpark.atdd.domain.user.step.UserSteps.createSaveRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -25,14 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @WebMvcTest
 public class UserControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
+    @Autowired private ObjectMapper mapper;
 
-    @Autowired
-    private ObjectMapper mapper;
-
-    @MockBean
-    private UserService userService;
+    @MockBean private UserService userService;
 
     @Test
     public void save_사용자를_저장한다() throws Exception {
@@ -59,13 +56,6 @@ public class UserControllerTest {
                 .andReturn()
                 .getResponse();
         return response;
-    }
-
-    private UserSaveRequest createSaveRequest(String username, String password) {
-        UserSaveRequest saveRequest = new UserSaveRequest();
-        ReflectionTestUtils.setField(saveRequest, "username", username);
-        ReflectionTestUtils.setField(saveRequest, "password", password);
-        return saveRequest;
     }
 }
 
