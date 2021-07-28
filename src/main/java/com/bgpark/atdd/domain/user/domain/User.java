@@ -14,6 +14,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class User {
 
+    private static final int PASSWORD_LENGTH_THRESHOLD = 5;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +28,7 @@ public class User {
     }
 
     public void checkPassword() {
-        if (this.password.length() <= 5) {
+        if (this.password.length() <= PASSWORD_LENGTH_THRESHOLD) {
             throw new InvalidPasswordException("비밀번호는 5자리를 초과해야합니다");
         }
     }
