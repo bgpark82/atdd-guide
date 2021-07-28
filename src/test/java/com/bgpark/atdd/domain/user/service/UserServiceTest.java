@@ -2,6 +2,7 @@ package com.bgpark.atdd.domain.user.service;
 
 import com.bgpark.atdd.domain.user.domain.UserRepository;
 import com.bgpark.atdd.domain.user.dto.UserSaveRequest;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -16,13 +17,18 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+    private UserService userService;
+
+    private UserSaveRequest request;
+
+    @Before
+    public void setUp() throws Exception {
+        userService = new UserServiceImpl(userRepository);
+        request = createSaveRequest("박병길","123");
+    }
 
     @Test
     public void save_사용자를_저장한다() {
-        // given
-        UserService userService = new UserServiceImpl(userRepository);
-        UserSaveRequest request = createSaveRequest("박병길","123");
-
         // when
         userService.save(request);
 
