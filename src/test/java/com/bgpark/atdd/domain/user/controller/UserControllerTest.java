@@ -24,7 +24,7 @@ public class UserControllerTest {
     @Test
     public void save_사용자를_저장한다() throws Exception {
         // given
-        String userRequest = "{\"name\":\"박병길\",\"password\":\"123\"}";
+        String userRequest = "{\"username\":\"박병길\",\"password\":\"123\"}";
 
         // when
         MockHttpServletResponse response = mvc.perform(post("/users")
