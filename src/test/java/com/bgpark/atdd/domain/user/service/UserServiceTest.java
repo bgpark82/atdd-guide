@@ -24,7 +24,7 @@ public class UserServiceTest {
     @Before
     public void setUp() throws Exception {
         userService = new UserServiceImpl(userRepository);
-        request = createSaveRequest("박병길","123");
+        request = createSaveRequest("박병길","123456");
     }
 
     @Test
