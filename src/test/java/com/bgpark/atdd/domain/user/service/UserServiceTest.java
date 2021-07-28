@@ -20,7 +20,7 @@ public class UserServiceTest {
     @Test
     public void save_사용자를_저장한다() {
         // given
-        UserService userService = new UserServiceImpl();
+        UserService userService = new UserServiceImpl(userRepository);
         UserSaveRequest request = createSaveRequest("박병길","123");
 
         // when
