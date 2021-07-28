@@ -26,7 +26,12 @@ public class UserRepositoryTest {
         userRepository.save(user);
 
         // then
-        assertThat(userRepository.findById(1L).get().getUsername()).isEqualTo("박병길");
-        assertThat(userRepository.findById(1L).get().getPassword()).isEqualTo("123");
+        assertSaveUser();
+    }
+
+    private void assertSaveUser() {
+        User expected = userRepository.findById(1L).get();
+        assertThat(expected.getUsername()).isEqualTo("박병길");
+        assertThat(expected.getPassword()).isEqualTo("123");
     }
 }
