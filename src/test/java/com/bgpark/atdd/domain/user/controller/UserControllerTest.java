@@ -1,6 +1,6 @@
 package com.bgpark.atdd.domain.user.controller;
 
-import com.bgpark.atdd.domain.ControllerTest;
+import com.bgpark.atdd.ControllerTest;
 import com.bgpark.atdd.domain.user.dto.UserSaveRequest;
 import com.bgpark.atdd.domain.user.service.UserService;
 import org.junit.Test;

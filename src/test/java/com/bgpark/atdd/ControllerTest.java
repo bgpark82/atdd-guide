@@ -1,4 +1,4 @@
-package com.bgpark.atdd.domain;
+package com.bgpark.atdd;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;
