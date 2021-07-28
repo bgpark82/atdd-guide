@@ -1,6 +1,6 @@
 package com.bgpark.atdd.domain.user.domain;
 
-public interface UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    void save(User user);
+public interface UserRepository extends JpaRepository<User, Long> {
 }
