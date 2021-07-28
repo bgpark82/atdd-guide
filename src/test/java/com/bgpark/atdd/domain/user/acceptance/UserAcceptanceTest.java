@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.bgpark.atdd.domain.user.step.UserSteps.createSaveRequest;
+import static com.bgpark.atdd.domain.user.step.UserSteps.sendSaveRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -42,16 +43,5 @@ public class UserAcceptanceTest {
 
     private void assertSaveResponse(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
-    }
-
-    private ExtractableResponse<Response> sendSaveRequest(UserSaveRequest saveRequest) {
-        ExtractableResponse<Response> response = RestAssured
-                .given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(saveRequest)
-                .when().post("/users")
-                .then().log().all()
-                .extract();
-        return response;
     }
 }
