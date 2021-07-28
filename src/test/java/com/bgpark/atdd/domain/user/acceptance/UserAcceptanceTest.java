@@ -34,6 +34,17 @@ public class UserAcceptanceTest {
         UserSaveRequest saveRequest = createSaveRequest("박병길", "123456");
 
         // when
+        ExtractableResponse<Response> response = sendSaveRequest(saveRequest);
+
+        // then
+        assertSaveResponse(response);
+    }
+
+    private void assertSaveResponse(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+    }
+
+    private ExtractableResponse<Response> sendSaveRequest(UserSaveRequest saveRequest) {
         ExtractableResponse<Response> response = RestAssured
                 .given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -41,8 +52,6 @@ public class UserAcceptanceTest {
                 .when().post("/users")
                 .then().log().all()
                 .extract();
-
-        // then
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+        return response;
     }
 }
