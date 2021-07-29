@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserFindResponse findById(Long id) {
-        return new UserFindResponse(1L, "박병길", "123456");
+        User user = userRepository.findById(id).get();
+
+        return new UserFindResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getPassword());
     }
 }
