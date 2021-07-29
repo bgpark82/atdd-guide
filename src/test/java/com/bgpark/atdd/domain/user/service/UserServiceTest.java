@@ -10,11 +10,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
 import static com.bgpark.atdd.domain.user.step.UserSteps.createSaveRequest;
+import static com.bgpark.atdd.domain.user.step.UserSteps.createUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -48,10 +48,7 @@ public class UserServiceTest {
     public void findById_사용자를_조회한다() {
         // given
         Long id = 1L;
-        User user = new User();
-        ReflectionTestUtils.setField(user, "id", id);
-        ReflectionTestUtils.setField(user, "username", "박병길");
-        ReflectionTestUtils.setField(user, "password", "123456");
+        User user = createUser(id, "박병길", "123456");
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
 
         // when
@@ -59,9 +56,7 @@ public class UserServiceTest {
 
         // then
         verify(userRepository).findById(1L);
-        assertThat(response.getId()).isEqualTo(id);
-        assertThat(response.getUsername()).isEqualTo("박병길");
-        assertThat(response.getPassword()).isEqualTo("123456");
+        assertFindResponse(id, response);
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -71,6 +66,12 @@ public class UserServiceTest {
         when(userRepository.findById(id)).thenReturn(Optional.empty());
 
         // when
-        UserFindResponse response = userService.findById(id);
+        userService.findById(id);
+    }
+
+    private void assertFindResponse(Long id, UserFindResponse response) {
+        assertThat(response.getId()).isEqualTo(id);
+        assertThat(response.getUsername()).isEqualTo("박병길");
+        assertThat(response.getPassword()).isEqualTo("123456");
     }
 }
