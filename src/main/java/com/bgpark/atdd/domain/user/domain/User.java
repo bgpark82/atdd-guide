@@ -34,5 +34,8 @@ public class User {
     }
 
     public void addPrefix() {
+        if (this.username.startsWith("박")) {
+            this.username = "개발자_" + this.username;
+        }
     }
 }
