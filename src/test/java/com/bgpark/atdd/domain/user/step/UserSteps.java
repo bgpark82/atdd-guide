@@ -35,4 +35,13 @@ public class UserSteps {
                 .extract();
         return response;
     }
+
+    public static ExtractableResponse<Response> sendFindRequest(Long id) {
+        ExtractableResponse<Response> response = RestAssured
+                .given().log().all()
+                .when().get("/users/" + id)
+                .then().log().all()
+                .extract();
+        return response;
+    }
 }
