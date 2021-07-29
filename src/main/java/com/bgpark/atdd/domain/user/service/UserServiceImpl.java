@@ -1,5 +1,6 @@
 package com.bgpark.atdd.domain.user.service;
 
+import com.bgpark.atdd.domain.exception.UserNotFoundException;
 import com.bgpark.atdd.domain.user.domain.User;
 import com.bgpark.atdd.domain.user.domain.UserRepository;
 import com.bgpark.atdd.domain.user.dto.UserFindResponse;
@@ -22,7 +23,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserFindResponse findById(Long id) {
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("사용자가 존재하지 않습니다"));
 
         return new UserFindResponse(
                 user.getId(),
