@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("사용자가 존재하지 않습니다"));
 
+        user.addPrefix();
+
         return new UserFindResponse(
                 user.getId(),
                 user.getUsername(),
