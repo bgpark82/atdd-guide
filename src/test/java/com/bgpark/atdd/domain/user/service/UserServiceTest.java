@@ -1,5 +1,6 @@
 package com.bgpark.atdd.domain.user.service;
 
+import com.bgpark.atdd.domain.exception.UserNotFoundException;
 import com.bgpark.atdd.domain.user.domain.User;
 import com.bgpark.atdd.domain.user.domain.UserRepository;
 import com.bgpark.atdd.domain.user.dto.UserFindResponse;
@@ -61,5 +62,15 @@ public class UserServiceTest {
         assertThat(response.getId()).isEqualTo(id);
         assertThat(response.getUsername()).isEqualTo("박병길");
         assertThat(response.getPassword()).isEqualTo("123456");
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void findById_사용자_미존재시_에러발생한다() {
+        // given
+        Long id = 1L;
+        when(userRepository.findById(id)).thenReturn(Optional.empty());
+
+        // when
+        UserFindResponse response = userService.findById(id);
     }
 }
