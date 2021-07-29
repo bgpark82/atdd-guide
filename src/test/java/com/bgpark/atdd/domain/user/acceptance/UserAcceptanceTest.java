@@ -48,7 +48,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
         // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.as(UserFindResponse.class).getUsername()).isEqualTo("박병길");
+        assertThat(response.as(UserFindResponse.class).getUsername()).isEqualTo("개발자_박병길");
         assertThat(response.as(UserFindResponse.class).getPassword()).isEqualTo("123456");
     }
 

@@ -71,7 +71,7 @@ public class UserServiceTest {
 
     private void assertFindResponse(Long id, UserFindResponse response) {
         assertThat(response.getId()).isEqualTo(id);
-        assertThat(response.getUsername()).isEqualTo("박병길");
+        assertThat(response.getUsername()).isEqualTo("개발자_박병길");
         assertThat(response.getPassword()).isEqualTo("123456");
     }
 }
