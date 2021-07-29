@@ -15,6 +15,8 @@ import javax.persistence.Id;
 public class User {
 
     private static final int PASSWORD_LENGTH_THRESHOLD = 5;
+    private static final String DEFAULT_LAST_NAME = "박";
+    private static final String DEFAULT_PREFIX = "개발자_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +36,8 @@ public class User {
     }
 
     public void addPrefix() {
-        if (this.username.startsWith("박")) {
-            this.username = "개발자_" + this.username;
+        if (this.username.startsWith(DEFAULT_LAST_NAME)) {
+            this.username = DEFAULT_PREFIX + this.username;
         }
     }
 }
