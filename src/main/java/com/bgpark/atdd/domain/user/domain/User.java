@@ -32,4 +32,7 @@ public class User {
             throw new InvalidPasswordException("비밀번호는 5자리를 초과해야합니다");
         }
     }
+
+    public void addPrefix() {
+    }
 }
