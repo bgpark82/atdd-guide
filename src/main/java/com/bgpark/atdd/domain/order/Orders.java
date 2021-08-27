@@ -31,4 +31,16 @@ public class Orders {
         this.price = price;
         this.orderItems = orderItems;
     }
+
+    public void checkPrice() {
+        if (this.price != getTotalOrderItemsPrice()) {
+            throw new IllegalStateException();
+        }
+    }
+
+    private int getTotalOrderItemsPrice() {
+        return orderItems.stream()
+                .mapToInt(OrderItem::getTotalPrice)
+                .sum();
+    }
 }

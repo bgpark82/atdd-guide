@@ -30,4 +30,8 @@ public class OrderItem {
         this.product = product;
         this.quantity = quantity;
     }
+
+    public int getTotalPrice() {
+        return this.quantity * product.getPrice();
+    }
 }
