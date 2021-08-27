@@ -31,39 +31,44 @@ public class OrderServiceTest {
         // given
         OrderService orderService = new OrderService(orderRepository, productRepository);
 
+        String 상품_이름 = "햄버거";
+        int 상품_수량 = 10;
+        int 상품_가격 = 1000;
+        int 주문_가격 = 10000;
+
         // request 생성
         Product productRequest = new Product();
         productRequest.setId(1L);
 
         OrderItem orderItemRequest = new OrderItem();
         orderItemRequest.setProduct(productRequest);
-        orderItemRequest.setQuantity(10);
+        orderItemRequest.setQuantity(상품_수량);
 
         Orders request = new Orders();
         request.setOrderItems(Arrays.asList(orderItemRequest));
-        request.setPrice(10000);
+        request.setPrice(주문_가격);
 
         // product 저장
         Product product = new Product();
         product.setId(1L);
-        product.setName("햄버거");
-        product.setPrice(1000);
+        product.setName(상품_이름);
+        product.setPrice(상품_가격);
 
         given(productRepository.findById(any())).willReturn(Optional.of(product));
 
         // order 저장
         Product product1 = new Product();
         product1.setId(1L);
-        product1.setName("햄버거");
-        product1.setPrice(1000);
+        product1.setName(상품_이름);
+        product1.setPrice(상품_가격);
 
         OrderItem orderItem = new OrderItem();
         orderItem.setId(1L);
-        orderItem.setQuantity(10);
+        orderItem.setQuantity(상품_수량);
         orderItem.setProduct(product1);
 
         Orders orders = new Orders();
-        orders.setPrice(10000);
+        orders.setPrice(주문_가격);
         orders.setId(1L);
         orders.setOrderItems(Arrays.asList(orderItem));
 
@@ -74,10 +79,10 @@ public class OrderServiceTest {
 
         // then
         assertAll(
-                () -> assertThat(savedOrder.getPrice()).isEqualTo(10000),
-                () -> assertThat(savedOrder.getOrderItems().get(0).getQuantity()).isEqualTo(10),
-                () -> assertThat(savedOrder.getOrderItems().get(0).getProduct().getPrice()).isEqualTo(1000),
-                () -> assertThat(savedOrder.getOrderItems().get(0).getProduct().getName()).isEqualTo("햄버거")
+                () -> assertThat(savedOrder.getPrice()).isEqualTo(주문_가격),
+                () -> assertThat(savedOrder.getOrderItems().get(0).getQuantity()).isEqualTo(상품_수량),
+                () -> assertThat(savedOrder.getOrderItems().get(0).getProduct().getPrice()).isEqualTo(상품_가격),
+                () -> assertThat(savedOrder.getOrderItems().get(0).getProduct().getName()).isEqualTo(상품_이름)
         );
     }
 
