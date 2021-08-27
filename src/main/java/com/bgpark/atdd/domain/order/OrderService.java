@@ -29,9 +29,10 @@ public class OrderService {
             Product product = productRepository.findById(productId).get();
 
             // orderItem 생성
-            OrderItem orderItem = new OrderItem();
-            orderItem.setQuantity(orderItemRequest.getQuantity());
-            orderItem.setProduct(product);
+            OrderItem orderItem = new OrderItem(
+                    product,
+                    orderItemRequest.getQuantity());
+
             orderItems.add(orderItem);
 
             // 가격 계산
@@ -46,9 +47,7 @@ public class OrderService {
         }
 
         // order 생성
-        Orders orders = new Orders();
-        orders.setPrice(menuPrice);
-        orders.setOrderItems(orderItems);
+        Orders orders = new Orders(menuPrice, orderItems);
 
         return orderRepository.save(orders);
     }

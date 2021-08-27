@@ -1,11 +1,10 @@
 package com.bgpark.atdd.domain.order;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter @Setter
+@Getter
 @Entity
 public class OrderItem {
 
@@ -17,4 +16,18 @@ public class OrderItem {
     private Product product;
 
     private int quantity;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public OrderItem(Long id, Product product, int quantity) {
+        this.id = id;
+        this.product = product;
+        this.quantity = quantity;
+    }
 }
